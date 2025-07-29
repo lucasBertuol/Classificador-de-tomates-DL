@@ -59,7 +59,8 @@ Esse método foi usado no arquivo **Tomato_Classifier_1**. Nele eu treino novame
 3. Então, troquei a camada de classificação final da VGG16, uma camada softmax de 1000 neurônios correspondente à ImageNet, por essa nova camada de 2 neurônios. Com isso,  crei uma nova rede chamada `model_new` 
 4. O próximo ajuste foi congelar todas as camadas da rede `model_new`, exceto a última. Para compilar o modelo, usei a função de perda `categorical_crossentropy` (adequada para medir a performance em tarefas de classificação), otimizador `adam` e métricas para `accuracy`
 
-![model.summary()](Images/Classifier_1_Transfer_learning_model.jpg)
+![](https://github.com/user-attachments/assets/449ad4e7-1f37-441a-b046-b6c1a9e45e1d)
+
 ### Método 2: treinar um novo classificador para o modelo
 Esse método foi usado no arquivo **Tomato_Classifier_2**. As features de alto nível do modelo pré-treinado podem não ser relevantes para classificar tomates. É por isso que dessa vez eu utilizo o meu próprio head customizado, mais complexo e com mais parâmetros para se adaptar à minha tarefa específica. Simultaneamente, as features mais genéricas de camadas anteriores da VGG16 servem como base para o novo classificador. Essa rede pode aprender combinações mais ricas e não lineares das features extraídas, o que pode levar a um melhor desempenho, mas também aumenta o risco de overfitting se os dados forem insuficientes. Todos os blocos convolucionais do modelo são congelados, apenas o novo head é treinável. 
 
@@ -70,34 +71,37 @@ Esse método foi usado no arquivo **Tomato_Classifier_2**. As features de alto n
 4. Compilei o modelo da mesma forma, usando `loss='categorical_crossentropy'`, `optmizer='adam'` e `metrics='accuracy'`
 Detalhes do modelo:
 
-imagem do model.summary()
+![](https://github.com/user-attachments/assets/39f70651-bb3d-4504-940f-a4dbea157bd9)
+
 
 Em todos os modelos eu usei um batch_size de 128 e treinei por 20 epochs. 
 ### Modelo de controle: rede neural treinada do zero
 Com a intenção de comparar a eficiência e os resultados de se utilizar Transfer learning em relação com um modelo de IA sem nenhum conhecimento prévio, eu desenvolvi um modelo chamado `model_scratch`. Detalhes do modelo:
 
-imagem do model.summary()
+![model scratch](https://github.com/user-attachments/assets/fc3add12-f84c-4c32-9349-d60af3bb4c3f)
+
 ## Resultados 📈
 A seguir, estão os gráficos de **perda** e **precisão** obtidos com cada modelo. Em azul, o modelo treinado do zero e em laranja os respectivos modelos com Transfer Learning. 
 
 **Tomato_classifier_1**
 
-imagem Tomato_Classifier_1_output 
+![Tomato Classifier 1 output](https://github.com/user-attachments/assets/e8f3ae61-5c89-4855-a7be-6f57dba23eff)
+
 
 84.55% de precisão com 0.44 de perda no modelo de Transfer Learning contra 60.91% de precisão com 1.20 de perda no modelo treinado do zero. 
 
 **Tomato_classifier_2**
 
-imagem Tomato_Classifier_2_output 
+![Tomato Classifier 2 output](https://github.com/user-attachments/assets/da33c691-ee2c-40e7-9f1e-a92388ef5b03)
+
 
 81.82% de precisão com 0.76 de perda no modelo de Transfer Learning contra 66.36% de precisão com 0.75 de perda no modelo treinado do zero. 
 
 Observando os gráficos é possível concluir que o modelo treinado do zero (`model_scratch`) não foi capaz de realizar um treinamento robusto mesmo com seus 1.2 milhões de neurônios e manteve uma precisão relativamente constante ao longo das 20 epochs. Ao aplicar o Transfer Learning, conseguimos observar uma melhora instantânea nos resultados do modelo, em decorrer do conhecimento prévio da rede pré-treinada sendo utilizada.
-Por outra perspectiva, analisamos que apesar do modelo usado em Tomato_Classifier_1 ser **menos complexo**, com apenas 8.194 neurônios, ele foi capaz de atingir uma **melhor performance** entre todos os modelos. Em contrapartida, o modelo mais sofisticado empregado em Tomato_Classifier_2 apesar de possuir um número muito maior de neurônios treináveis não foi capaz de alcançar uma melhor acurácia. Ao se tornar mais complexa, essa rede se tornou mais suscetível ao overfitting. 
+Por outra perspectiva, analisamos que apesar do modelo usado em Tomato_Classifier_1 ser **menos complexo**, com apenas 8.194 neurônios, ele foi capaz de atingir uma **melhor performance** entre todos os modelos (84.55%). Em contrapartida, o modelo mais sofisticado empregado em Tomato_Classifier_2 apesar de possuir um número muito maior de neurônios treináveis não foi capaz de alcançar uma melhor acurácia. Ao se tornar mais complexa, essa rede se tornou mais suscetível ao overfitting. 
 
-Classifier_2_overfitting
-A precisão nos dados de treino aumentou enquanto nos dados de teste a precisão diminuiu nas últimas epochs.
-
+![](https://github.com/user-attachments/assets/21b9f734-a479-4610-a69b-b0428ef64353)
+A precisão nos dados de treino aumentou enquanto nos dados de teste a precisão diminuiu nas últimas epochs
 Isso nos leva à conclusão de que nem sempre um modelo com mais parâmetros será o mais eficaz, pois em geral quanto maior a quantidade de parâmetros maior é a quantidade de dados necessária para alimentar o modelo. 
 ## Conclusão 🍅
 Por fim, conclui-se que mesmo com um dataset pequeno é possível melhorar a acurácia de uma rede de Deep learning ao utilizar **Data augmentation** e **Transfer Learning**. Com apenas **0,68%** dos neurônios usados na rede feita do zero, obtemos uma maior precisão. Isso nos permite economizar tempo e recursos computacionais. Comparando as redes 1 e 2 constatamos que as features extraídas pela rede VGG16 são suficientemente **relevantes**, tornando o classificador mais simples do Tomato_Classifier_1 a abordagem mais **eficaz** para este problema específico. 
