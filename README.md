@@ -21,7 +21,7 @@ Este projeto foi desenvolvido como estudo de caso didático para avaliar e compa
     
 -   **Framework:**  TensorFlow (Keras API)
     
--   **Execução:**  Google Colab (Possui bibliotecas necessárias já instaladas e interface amigável. Executei em runtime local para maior velocidade)
+-   **Execução:**  Google Colab (Possui bibliotecas necessárias já instaladas e interface amigável. Executei em runtime local para maior velocidade. Após terminar eu fiz o download dos arquivos jupyter, contidos em /Código_Classificadores/ nesse repositório)
     
 -   **Modelo base para Transfer Learning:**  rede VGG16 pré-treinada em ImageNet (diretamente via keras.applications)
 - **Dataset com imagens de tomates**
