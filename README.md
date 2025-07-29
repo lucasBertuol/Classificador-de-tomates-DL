@@ -88,14 +88,14 @@ A seguir, estão os gráficos de **perda** e **precisão** obtidos com cada mode
 ![Tomato Classifier 1 output](https://github.com/user-attachments/assets/e8f3ae61-5c89-4855-a7be-6f57dba23eff)
 
 
-84.55% de precisão com 0.44 de perda no modelo de Transfer Learning contra 60.91% de precisão com 1.20 de perda no modelo treinado do zero. 
+84.55% de precisão com 0.44 de perda no modelo de Transfer Learning com saída customizada contra 60.91% de precisão com 1.20 de perda no modelo treinado do zero. 
 
 **Tomato_classifier_2**
 
 ![Tomato Classifier 2 output](https://github.com/user-attachments/assets/da33c691-ee2c-40e7-9f1e-a92388ef5b03)
 
 
-81.82% de precisão com 0.76 de perda no modelo de Transfer Learning contra 66.36% de precisão com 0.75 de perda no modelo treinado do zero. 
+81.82% de precisão com 0.76 de perda no modelo de Transfer Learning com head customizado contra 66.36% de precisão com 0.75 de perda no modelo treinado do zero. 
 
 Observando os gráficos é possível concluir que o modelo treinado do zero (`model_scratch`) não foi capaz de realizar um treinamento robusto mesmo com seus 1.2 milhões de neurônios e manteve uma precisão relativamente constante ao longo das 20 epochs. Ao aplicar o Transfer Learning, conseguimos observar uma melhora instantânea nos resultados do modelo, em decorrer do conhecimento prévio da rede pré-treinada sendo utilizada.
 Por outra perspectiva, analisamos que apesar do modelo usado em Tomato_Classifier_1 ser **menos complexo**, com apenas 8.194 neurônios, ele foi capaz de atingir uma **melhor performance** entre todos os modelos (84.55%). Em contrapartida, o modelo mais sofisticado empregado em Tomato_Classifier_2 apesar de possuir um número muito maior de neurônios treináveis não foi capaz de alcançar uma melhor acurácia. Ao se tornar mais complexa, essa rede se tornou mais suscetível ao overfitting. 
