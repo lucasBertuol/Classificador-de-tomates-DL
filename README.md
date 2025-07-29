@@ -1,9 +1,9 @@
 # Classificador-de-tomates-DL
-Este projeto foi desenvolvido como estudo de caso didático para avaliar e comparar o desempenho de abordagens de **transfer learning** (aproveitando modelos pré-treinados) com redes neurais de Deep Learning treinadas do zero na tarefa de reconhecimento de **maturação de tomates** em imagens. Essa é uma atividade que faz parte do Bootcamp  BairesDev - Machine Learning Training oferecido pela [DIO](https://www.dio.me/) e foi realizada a partir de um tutorial para transfer learning disponibilizado pelo meu professor acessível nesse [link](https://colab.research.google.com/github/kylemath/ml4a-guides/blob/master/notebooks/transfer-learning.ipynb#scrollTo=VWWN-FPLYoZs) .
+Este projeto foi desenvolvido como estudo de caso didático para avaliar e comparar o desempenho de abordagens de **transfer learning** com redes neurais de Deep Learning treinadas do zero na tarefa de reconhecimento de **maturação de tomates** em imagens. Essa é uma atividade que faz parte do Bootcamp  BairesDev - Machine Learning Training oferecido pela [DIO](https://www.dio.me/) e foi realizada a partir de um tutorial para transfer learning disponibilizado pelo meu professor acessível nesse [link](https://colab.research.google.com/github/kylemath/ml4a-guides/blob/master/notebooks/transfer-learning.ipynb#scrollTo=VWWN-FPLYoZs) .
 
 ##  Objetivos 🎯
  - Demonstrar, com exemplos práticos, como o transfer learning pode superar ou igualar modelos criados do zero, especialmente em cenários com poucos dados. A tarefa central é classificar imagens em duas categorias: **tomates maduros** e **tomates verdes**.
- - Comparar diferentes abordagens de **Transfer learning**
+ - Comparar diferentes abordagens de **Transfer learning** e **Feature extraction**
  
  ## Estrutura do projeto 🗂️
  -   **Tomato_Classifier_1.ipynb:**  Transfer learning com apenas a camada de saída substituída; (~8.000 parâmetros treináveis)
@@ -45,9 +45,9 @@ Eu apliquei esse método para artificialmente aumentar o **tamanho** e a **varie
 Transfer learning é uma técnica de Machine Learning em que aproveitamos o **aprendizado** de um modelo de IA para treinar outro modelo. Ao construir um modelo do zero, é necessário possuir um dataset com uma grande quantidade e variabilidade de dados para obter bons resultados. Por outro lado, ao utilizar um modelo pré-treinado podemos usar o conhecimento adquirido em determinada tarefa e aplicar a um novo problema relacionado. Dessa forma, economizam-se recursos computacionais e se torna possível alcançar uma boa **precisão** mesmo com um dataset limitado, o que é muito útil para o nosso caso.  
 Dentro do Transfer Learning, existem duas estratégias principais:  **Feature extraction**  e  **Fine-tuning**. Essas estratégias são consideradas subdivisões ou abordagens distintas dentro do Transfer Learning.
 
--   **Feature extraction**: utiliza-se o modelo pré-treinado como um extrator de features, aproveitando as representações aprendidas nas primeiras camadas e, geralmente, apenas treinando novas camadas "head" (de classificação) para a tarefa desejada.
+-   **Feature extraction**: utiliza-se o modelo pré-treinado como um extrator de features, aproveitando as representações aprendidas nas primeiras camadas e, geralmente, apenas treinando novas camadas "head" (de classificação) para a tarefa desejada. Mais eficaz para datasets pequenos. 
     
--   **Fine-tuning**: além de adicionar ou treinar o head, parte ou todas as camadas do modelo pré-treinado passam por um ajuste fino (ou seja, são retreinadas), permitindo ao modelo adaptar-se melhor à nova tarefa ou domínio.
+-   **Fine-tuning**: além de adicionar ou treinar o head, parte ou todas as camadas do modelo pré-treinado passam por um ajuste fino (ou seja, são retreinadas), permitindo ao modelo adaptar-se melhor à nova tarefa ou domínio. É necessário possuir dados suficientes para não causar overfitting. 
 
 Devido ao dataset pequeno, eu optei por realizar Feature extraction. Entretanto, eu não tinha certeza se as features de alto nível do ImageNet seriam relevantes para um caso específico como o de maturação de tomates, apesar de se tratarem de objetos do mundo real. Por essa razão, foram exploradas duas formas distintas de realizar a Feature Extraction:
 ### Método 1: substituir a camada de saída da rede pré-treinada
@@ -61,7 +61,7 @@ Esse método foi usado no arquivo **Tomato_Classifier_1**. Nele eu treino novame
 
 imagem do model.summary()
 ### Método 2: treinar um novo classificador para o modelo
-Esse método foi usado no arquivo **Tomato_Classifier_2**. Dessa vez eu utilizo um head customizado mais complexo, com mais parâmetros para se adaptar à minha tarefa específica. Essa rede pode aprender combinações mais ricas e não lineares das features extraídas, o que pode levar a um melhor desempenho, mas também aumenta o risco de overfitting se os dados forem insuficientes. Todos os blocos convolucionais do modelo são congelados, apenas o novo head é treinável. 
+Esse método foi usado no arquivo **Tomato_Classifier_2**. As features de alto nível do modelo pré-treinado podem não ser relevantes para classificar tomates. É por isso que dessa vez eu utilizo o meu próprio head customizado, mais complexo e com mais parâmetros para se adaptar à minha tarefa específica. Simultaneamente, as features mais genéricas de camadas anteriores da VGG16 servem como base para o novo classificador. Essa rede pode aprender combinações mais ricas e não lineares das features extraídas, o que pode levar a um melhor desempenho, mas também aumenta o risco de overfitting se os dados forem insuficientes. Todos os blocos convolucionais do modelo são congelados, apenas o novo head é treinável. 
 
 **Processo**:
 1. Importei a VGG16 novamente com pesos pré-treinados mas dessa vez sem o head original `include_top=False`
