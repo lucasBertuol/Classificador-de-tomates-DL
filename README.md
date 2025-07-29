@@ -54,12 +54,12 @@ Devido ao dataset pequeno, eu optei por realizar Feature extraction. Entretanto,
 Esse método foi usado no arquivo **Tomato_Classifier_1**. Nele eu treino novamente a camada de decisão final da VGG16, adaptando-a para as minhas classes. Apenas essa última camada da rede permance treinável, o resto da rede fica cogelada.  A vantagem dessa estratégia é aproveitar as features genéricas do ImageNet, treinar mais rapidamente e reduzir o risco de overfitting com o nosso dataset pequeno. Em contrapartida, a adaptação do modelo fica limitada se as features pré-existentes não forem suficientemente representativas para a minha tarefa.
 
 **Processo:**
-1. Eu importei a rede VGG16 com pesos pré-treinados em ImageNet(`weights='imagenet'`), e com o head original `include_top=True`
+1. Eu importei a rede VGG16 do Keras via TensorFlow (`keras.applications.VGG16`) com pesos pré-treinados em ImageNet(`weights='imagenet'`), e com o head original `include_top=True`
 2. A seguir, eu criei uma nova camada densa para o meu número de classes (2), usando softmax como ativação. 
 3. Então, troquei a camada de classificação final da VGG16, uma camada softmax de 1000 neurônios correspondente à ImageNet, por essa nova camada de 2 neurônios. Com isso,  crei uma nova rede chamada `model_new` 
 4. O próximo ajuste foi congelar todas as camadas da rede `model_new`, exceto a última. Para compilar o modelo, usei a função de perda `categorical_crossentropy` (adequada para medir a performance em tarefas de classificação), otimizador `adam` e métricas para `accuracy`
 
-imagem do model.summary()
+![]()
 ### Método 2: treinar um novo classificador para o modelo
 Esse método foi usado no arquivo **Tomato_Classifier_2**. As features de alto nível do modelo pré-treinado podem não ser relevantes para classificar tomates. É por isso que dessa vez eu utilizo o meu próprio head customizado, mais complexo e com mais parâmetros para se adaptar à minha tarefa específica. Simultaneamente, as features mais genéricas de camadas anteriores da VGG16 servem como base para o novo classificador. Essa rede pode aprender combinações mais ricas e não lineares das features extraídas, o que pode levar a um melhor desempenho, mas também aumenta o risco de overfitting se os dados forem insuficientes. Todos os blocos convolucionais do modelo são congelados, apenas o novo head é treinável. 
 
