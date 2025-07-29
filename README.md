@@ -1,4 +1,4 @@
-# Classificador-de-tomates-DL
+# Classificador de tomates - Deep Learning
 Este projeto foi desenvolvido como estudo de caso didático para avaliar e comparar o desempenho de abordagens de **transfer learning** com redes neurais de Deep Learning treinadas do zero na tarefa de reconhecimento de **maturação de tomates** em imagens. Essa é uma atividade que faz parte do Bootcamp  BairesDev - Machine Learning Training oferecido pela [DIO](https://www.dio.me/) e foi realizada a partir de um tutorial para transfer learning disponibilizado pelo meu professor acessível nesse [link](https://colab.research.google.com/github/kylemath/ml4a-guides/blob/master/notebooks/transfer-learning.ipynb#scrollTo=VWWN-FPLYoZs) .
 
 ##  Objetivos 🎯
