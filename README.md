@@ -101,7 +101,8 @@ Observando os gráficos é possível concluir que o modelo treinado do zero (`mo
 Por outra perspectiva, analisamos que apesar do modelo usado em Tomato_Classifier_1 ser **menos complexo**, com apenas 8.194 neurônios, ele foi capaz de atingir uma **melhor performance** entre todos os modelos (84.55%). Em contrapartida, o modelo mais sofisticado empregado em Tomato_Classifier_2 apesar de possuir um número muito maior de neurônios treináveis não foi capaz de alcançar uma melhor acurácia. Ao se tornar mais complexa, essa rede se tornou mais suscetível ao overfitting. 
 
 ![](https://github.com/user-attachments/assets/21b9f734-a479-4610-a69b-b0428ef64353)
-A precisão nos dados de treino aumentou enquanto nos dados de teste a precisão diminuiu nas últimas epochs
+A precisão nos dados de treino aumentou enquanto nos dados de teste a precisão diminuiu nas últimas epochs! 
+<br>
 Isso nos leva à conclusão de que nem sempre um modelo com mais parâmetros será o mais eficaz, pois em geral quanto maior a quantidade de parâmetros maior é a quantidade de dados necessária para alimentar o modelo. 
 ## Conclusão 🍅
 Por fim, conclui-se que mesmo com um dataset pequeno é possível melhorar a acurácia de uma rede de Deep learning ao utilizar **Data augmentation** e **Transfer Learning**. Com apenas **0,68%** dos neurônios usados na rede feita do zero, obtemos uma maior precisão. Isso nos permite economizar tempo e recursos computacionais. Comparando as redes 1 e 2 constatamos que as features extraídas pela rede VGG16 são suficientemente **relevantes**, tornando o classificador mais simples do Tomato_Classifier_1 a abordagem mais **eficaz** para este problema específico. 
